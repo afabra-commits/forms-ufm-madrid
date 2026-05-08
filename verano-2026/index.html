@@ -145,7 +145,7 @@
 
     /* ─── FORM (seguridad) ───────────────────────── */
     .form-wrapper iframe {
-      width: 100%; border: 2px solid var(--border); display: block; background: #ddeef8;
+      width: 100%; border: 2px solid var(--cream); display: block; background: var(--cream);
     }
 
     /* ─── SEPARADOR ──────────────────────────────── */
@@ -423,33 +423,26 @@
     #vive-ufm .card-img { width: 50%; flex-shrink: 0; aspect-ratio: unset; align-self: stretch; border-right: 1px solid var(--border); }
     #vive-ufm .card-body { padding: 3vh 2.5vw; justify-content: flex-start; gap: 0.45rem; }
 
-    /* ─── ESFERA EXPLORA MADRID ─────────────────── */
-    .explora-sphere {
-      width: min(680px, 88vw);
-      height: min(680px, 88vw);
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      overflow: hidden;
-      margin: 3vh auto;
+    /* ─── EXPLORA MADRID ────────────────────────── */
+    .explora-links {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      align-content: center;
-      gap: 1.1rem 2rem;
-      padding: 17%;
-      box-sizing: border-box;
+      gap: 1.1rem 2.5rem;
+      margin: 3vh auto;
+      max-width: 720px;
     }
-    .explora-sphere a {
-      font-size: clamp(0.85rem, 1.1vw, 1rem);
+    .explora-links a {
+      font-size: clamp(0.9rem, 1.1vw, 1rem);
       font-weight: 400;
       color: var(--cobalt);
       text-decoration: none;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
-    .explora-sphere a:hover { border-color: var(--cobalt); }
-    .explora-sphere strong {
-      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    .explora-links a:hover { border-color: var(--cobalt); }
+    .explora-links strong {
+      font-size: clamp(0.9rem, 1.1vw, 1rem);
       font-weight: 700;
       color: var(--black);
     }
@@ -464,7 +457,6 @@
       .grid { grid-template-columns: 1fr; }
       #vive-madrid .grid,
       #actividades-ufm .grid { grid-template-columns: repeat(2, 1fr); }
-      .explora-sphere { width: 92vw; height: 92vw; }
       .tl-row { flex-direction: row; }
       .tl-fecha { min-width: 110px; }
       footer { flex-direction: column; }
@@ -715,7 +707,7 @@
   <p class="seccion-label">Por tu cuenta</p>
   <h2 class="seccion-titulo">Explora Madrid.</h2>
   <p class="seccion-desc">Cosas que ocurren en Madrid este verano y no son nuestras. Apúntatelas.</p>
-  <div class="explora-sphere">
+  <div class="explora-links">
     <a href="https://www.museodelprado.es/actualidad/actividad/el-prado-de-noche-2026/948271f2-336d-4a9c-b24a-55730c602644" target="_blank">El Prado de noche</a>
     <a href="https://ferialibromadrid.com" target="_blank">Feria del Libro</a>
     <a href="https://phe.es" target="_blank">PHotoEspaña</a>
