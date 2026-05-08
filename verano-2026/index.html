@@ -74,6 +74,9 @@
     .topbar-btn.secondary { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.25); }
     .topbar-btn.secondary:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
 
+    .seccion a { color: var(--cobalt); text-decoration: none; border-bottom: 1px solid var(--border); }
+    .seccion a:hover { border-color: var(--cobalt); }
+
     #formulario-llegada, #separador-agenda { scroll-margin-top: 52px; }
 
     /* ─── PORTADA ────────────────────────────────── */
@@ -149,12 +152,12 @@
     .separador {
       background: var(--cobalt); padding: 5vh 5%;
       border-bottom: 4px solid var(--gold);
-      display: flex; gap: 4rem; align-items: baseline;
+      display: flex; flex-direction: column; gap: 1rem;
     }
     .separador h2 {
-      font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+      font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 700; letter-spacing: -0.025em;
-      line-height: 1.0; color: #fff; flex-shrink: 0;
+      line-height: 1.0; color: #fff;
     }
     .separador p {
       font-size: clamp(1rem, 1.5vw, 1.15rem);
@@ -197,10 +200,8 @@
     .card.selected { outline-color: var(--cobalt); background: #eef1fa; }
     .seccion.alt .card.selected { background: #e4e9f5; }
 
-    /* Indicador de selección en esquina */
     .card-check {
-      position: absolute; top: 0.8rem; right: 0.8rem;
-      width: 26px; height: 26px; z-index: 2;
+      width: 26px; height: 26px; flex-shrink: 0;
       background: rgba(255,255,255,0.95);
       border: 2px solid var(--border);
       display: flex; align-items: center; justify-content: center;
@@ -211,6 +212,9 @@
     .card.selected .card-check {
       background: var(--cobalt); border-color: var(--cobalt); color: #fff;
     }
+
+    .card-title-row { display: flex; align-items: flex-start; gap: 0.55rem; }
+    .tl-title-row { display: flex; align-items: flex-start; gap: 0.55rem; margin-bottom: 0.2rem; }
 
     .card-img {
       width: 100%; aspect-ratio: 16/9;
@@ -409,11 +413,58 @@
       margin-bottom: 60px; /* espacio para la cart-bar */
     }
 
+    /* ─── GRIDS DE 4 COLUMNAS FIJAS ─────────────── */
+    #vive-madrid .grid,
+    #actividades-ufm .grid { grid-template-columns: repeat(4, 1fr); }
+
+    /* ─── BLOQUE 1: img|texto · img|texto ───────── */
+    #vive-ufm .grid { grid-template-columns: repeat(4, 1fr); }
+    #vive-ufm .card { grid-column: span 2; flex-direction: row; min-height: 240px; }
+    #vive-ufm .card-img { width: 50%; flex-shrink: 0; aspect-ratio: unset; align-self: stretch; border-right: 1px solid var(--border); }
+    #vive-ufm .card-body { padding: 3vh 2.5vw; justify-content: flex-start; gap: 0.45rem; }
+
+    /* ─── ESFERA EXPLORA MADRID ─────────────────── */
+    .explora-sphere {
+      width: min(680px, 88vw);
+      height: min(680px, 88vw);
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      margin: 3vh auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      gap: 1.1rem 2rem;
+      padding: 17%;
+      box-sizing: border-box;
+    }
+    .explora-sphere a {
+      font-size: clamp(0.85rem, 1.1vw, 1rem);
+      font-weight: 400;
+      color: var(--cobalt);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .explora-sphere a:hover { border-color: var(--cobalt); }
+    .explora-sphere strong {
+      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+      font-weight: 700;
+      color: var(--black);
+    }
+
     /* ─── RESPONSIVE ─────────────────────────────── */
     @media (max-width: 700px) {
       .portada { height: 80vh; }
+      #vive-ufm .grid { grid-template-columns: 1fr; }
+      #vive-ufm .card { grid-column: span 1; flex-direction: column; min-height: auto; }
+      #vive-ufm .card-img { width: 100%; aspect-ratio: 16/9; align-self: auto; border-right: none; }
       .separador { flex-direction: column; gap: 1rem; }
       .grid { grid-template-columns: 1fr; }
+      #vive-madrid .grid,
+      #actividades-ufm .grid { grid-template-columns: repeat(2, 1fr); }
+      .explora-sphere { width: 92vw; height: 92vw; }
       .tl-row { flex-direction: row; }
       .tl-fecha { min-width: 110px; }
       footer { flex-direction: column; }
@@ -429,8 +480,8 @@
 <nav class="topbar">
   <span class="topbar-brand">UFM Madrid · Verano 2026</span>
   <div class="topbar-nav">
-    <a href="#formulario-llegada" class="topbar-btn secondary">Seguridad e imagen</a>
-    <a href="#separador-agenda"   class="topbar-btn primary">Agenda de actividades</a>
+    <a href="#formulario-llegada" class="topbar-btn secondary">Para tu tranquilidad y la nuestra</a>
+    <a href="#separador-agenda"   class="topbar-btn primary">Fuera del aula</a>
   </div>
 </nav>
 
@@ -441,15 +492,14 @@
   <div class="portada-texto">
     <p class="eyebrow">UFM Madrid · Verano 2026</p>
     <h1>Bienvenidos<br>a Madrid.</h1>
-    <p>Antes de tu llegada necesitamos que completes el siguiente formulario. Solo te llevará unos minutos.</p>
   </div>
 </div>
 
 <!-- FORMULARIO 1: SEGURIDAD E IMAGEN -->
 <div class="seccion" id="formulario-llegada">
   <p class="seccion-label">Formulario de llegada</p>
-  <h2 class="seccion-titulo">Seguridad<br>e imagen.</h2>
-  <p class="seccion-desc">Datos de emergencia, contactos y consentimiento de uso de imagen. Esta información es estrictamente confidencial y solo accede a ella la dirección y coordinación académica del campus.</p>
+  <h2 class="seccion-titulo">Para tu tranquilidad y la nuestra.</h2>
+  <p class="seccion-desc">Antes de tu llegada necesitamos que completes el siguiente formulario. Solo te llevará unos minutos. Esta información es estrictamente confidencial.</p>
   <div class="form-wrapper">
     <iframe
       src="https://docs.google.com/forms/d/e/1FAIpQLSf2a6zKV09TSdOhNA1OQj5lqfgEyC5y5Z_2xCNsWI_w8951Bw/viewform?embedded=true"
@@ -461,46 +511,41 @@
 
 <!-- SEPARADOR -->
 <div class="separador" id="separador-agenda">
-  <h2>Actividades<br>extracurriculares.</h2>
-  <p><strong style="font-size: calc(1em + 2pt); color: #fff;">Selecciona las actividades a las que quieras inscribirte.</strong> Cuando hayas terminado, verás tu selección en el botón de abajo a la derecha — púlsalo para confirmar. Si alguna actividad tiene coste, se cargará directamente en tu cuenta de MiU.</p>
+  <h2>Fuera del aula.</h2>
+  <p>Selecciona las actividades a las que quieras inscribirte <strong>(el cuadrito blanco)</strong>. Cuando hayas terminado, verás tu selección en el <strong>botón de abajo a la derecha</strong> — púlsalo para confirmar. Si alguna actividad tiene coste, se cargará directamente en tu <strong>cuenta de MiU</strong>.</p>
 </div>
 
 <div class="nav-agenda">
   <a href="#vive-ufm">Vive UFM Madrid</a>
   <a href="#vive-madrid">Vive Madrid</a>
   <a href="#conferencias">Conferencias</a>
-  <a href="#actividades-ufm">Actividades en UFM</a>
+  <a href="#actividades-ufm">Ecosistema empresarial</a>
+  <a href="#explora-madrid">Explora Madrid</a>
 </div>
 
 <!-- BLOQUE 1: VIVE UFM MADRID -->
 <div class="seccion alt" id="vive-ufm">
-  <p class="seccion-label">Bloque 1</p>
+  <p class="seccion-label">En UFM Madrid</p>
   <h2 class="seccion-titulo">Vive UFM Madrid.</h2>
   <div class="grid">
 
-    <div class="card" data-value="Miércoles 3 de junio, 14h: bienvenida en el campus y tapas madrileñas (gratis)" data-price="0" data-label="Bienvenida en el campus y tapas madrileñas">
-      <div class="card-check">✓</div>
-      <div class="card-img"><div class="placeholder">foto</div></div>
+    <div class="card" data-value="" data-price="0" data-label="¡Hola Madrid! + tapas">
+      <div class="card-img"><img src="img/IMG_1080.jpg" alt="¡Hola Madrid! + tapas"></div>
       <div class="card-body">
-        <div class="card-meta">
-          <span class="card-fecha">Mié 3 junio · 14:00</span>
-          <span class="card-precio gratis">Gratis</span>
-        </div>
-        <h3 class="card-titulo">Bienvenida en el campus y tapas madrileñas</h3>
-        <p class="card-desc">Descripción por añadir.</p>
+        <span class="card-precio gratis">Gratis</span>
+        <span class="card-fecha">Mar 3 junio · 13:30</span>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">¡Hola Madrid! + tapas</h3></div>
+        <p class="card-desc">Conoce a tus compañeros, profesores y equipo de UFM Madrid, disfrutando de sangría, tapas y música.</p>
       </div>
     </div>
 
-    <div class="card" data-value="Jueves 25 de junio: paella y fiesta de despedida (gratis)" data-price="0" data-label="Paella y fiesta de despedida">
-      <div class="card-check">✓</div>
-      <div class="card-img"><div class="placeholder">foto</div></div>
+    <div class="card" data-value="" data-price="0" data-label="Siempre recordarás esta paella">
+      <div class="card-img"><img src="img/021db0ad-8b70-42c4-8eef-351bf1912808_source-aspect-ratio_default_0.jpg" alt="Paella de despedida"></div>
       <div class="card-body">
-        <div class="card-meta">
-          <span class="card-fecha">Jue 25 junio</span>
-          <span class="card-precio gratis">Gratis</span>
-        </div>
-        <h3 class="card-titulo">Paella y fiesta de despedida</h3>
-        <p class="card-desc">Descripción por añadir.</p>
+        <span class="card-precio gratis">Gratis</span>
+        <span class="card-fecha">Jue 25 junio · 13:30</span>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Siempre recordarás esta paella</h3></div>
+        <p class="card-desc">Paella, sangría y todo lo que tenéis que contar. El mejor final para un mes en Madrid.</p>
       </div>
     </div>
 
@@ -509,46 +554,55 @@
 
 <!-- BLOQUE 2: VIVE MADRID -->
 <div class="seccion" id="vive-madrid">
-  <p class="seccion-label">Bloque 2</p>
+  <p class="seccion-label">Te acompañamos</p>
   <h2 class="seccion-titulo">Vive Madrid.</h2>
   <div class="grid">
 
-    <div class="card" data-value="Viernes 5 de junio, 10h: South Summit www.southsummit.io/es (100 euros)" data-price="100" data-label="South Summit">
-      <div class="card-check">✓</div>
-      <div class="card-img"><div class="placeholder">foto</div></div>
+    <div class="card" data-value="" data-price="-1" data-label="Museo del Prado">
+      <div class="card-img"><img src="img/39c9bdf2-6e38-4537-87b6-c0348528db4f_268.jpg" alt="Museo del Prado"></div>
       <div class="card-body">
         <div class="card-meta">
-          <span class="card-fecha">Vie 5 junio · 10:00</span>
-          <span class="card-precio">100 €</span>
-        </div>
-        <h3 class="card-titulo">South Summit</h3>
-        <p class="card-desc">Descripción por añadir.</p>
-      </div>
-    </div>
-
-    <div class="card" data-value="Viernes 12 de junio: visita a Toledo (xxx euros)" data-price="-1" data-label="Visita a Toledo">
-      <div class="card-check">✓</div>
-      <div class="card-img"><div class="placeholder">foto</div></div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-fecha">Vie 12 junio</span>
+          <span class="card-fecha">Por confirmar</span>
           <span class="card-precio pendiente">Precio por confirmar</span>
         </div>
-        <h3 class="card-titulo">Visita a Toledo</h3>
-        <p class="card-desc">Descripción por añadir.</p>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Museo del Prado</h3></div>
+        <p class="card-desc">La mayor colección del mundo de Velázquez, Goya, El Greco, Tiziano, Rubens y El Bosco bajo un mismo techo. La segunda pinacoteca más grande del mundo, y posiblemente la mejor.</p>
       </div>
     </div>
 
-    <div class="card" data-value="Viernes 19 de junio: museo del Prado (gratis???)" data-price="0" data-label="Museo del Prado">
-      <div class="card-check">✓</div>
-      <div class="card-img"><div class="placeholder">foto</div></div>
+    <div class="card" data-value="" data-price="0" data-label="El Rastro">
+      <div class="card-img"><img src="img/inexpensive-womens-clothing-flea-market-the-rastro-la-latina-neighborhood-BRXKXA.jpg" alt="El Rastro"></div>
       <div class="card-body">
         <div class="card-meta">
-          <span class="card-fecha">Vie 19 junio</span>
+          <span class="card-fecha">Por confirmar</span>
           <span class="card-precio gratis">Gratis</span>
         </div>
-        <h3 class="card-titulo">Museo del Prado</h3>
-        <p class="card-desc">Descripción por añadir.</p>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">El Rastro: un mercado espontáneo con 500 años</h3></div>
+        <p class="card-desc">Más de 500 años de oferta y demanda sin planificar, sin subvenciones y sin burocracia: quien tiene algo que vender encuentra a alguien que quiere comprarlo, y el precio lo fijan ellos dos.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="" data-price="-1" data-label="Toledo">
+      <div class="card-img"><img src="img/conjunto2-transparente-utrilla-toledo.jpg" alt="Toledo"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Por confirmar</span>
+          <span class="card-precio pendiente">Precio por confirmar</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Toledo: la capital medieval de cristianos, judíos y musulmanes</h3></div>
+        <p class="card-desc">Capital de España antes que Madrid y Patrimonio de la Humanidad. Catedral gótica, palacios, conventos, sinagogas y mezquitas a diez minutos andando.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="" data-price="-1" data-label="Paella Team Building">
+      <div class="card-img"><img src="img/20191213_151259-2-scaled.jpg" alt="Paella Team Building"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Por confirmar</span>
+          <span class="card-precio pendiente">Precio por confirmar</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Paella Team Building</h3></div>
+        <p class="card-desc">Equipos, ingredientes, fuego y una sola pregunta: ¿quién hace la mejor paella? Una dinámica de cocina donde el trabajo en equipo lo es todo. Y luego, a comérsela con sangría.</p>
       </div>
     </div>
 
@@ -557,32 +611,43 @@
 
 <!-- BLOQUE 3: CONFERENCIAS -->
 <div class="seccion alt" id="conferencias">
-  <p class="seccion-label">Bloque 3 · Miércoles 15:45–16:45</p>
+  <p class="seccion-label">En UFM Madrid</p>
   <h2 class="seccion-titulo">Conferencias.</h2>
   <div class="timeline">
 
-    <div class="tl-row" data-value="Conferencia 1: miércoles 3 de 15:45 a 16:45" data-price="0" data-label="Conferencia 1 — mié 3 junio">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Mié 3 junio</span>
-      <div class="tl-content"><h3>Conferencia 1</h3><p>Ponente y tema por confirmar.</p></div>
+    <div class="tl-row" data-value="" data-price="0" data-label="Jesús Huerta de Soto — ¿Qué pasa cuando un político lee a Mises?">
+      <span class="tl-fecha">Por confirmar</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>¿Qué pasa cuando un político lee a Mises?</h3></div><p>Jesús Huerta de Soto — referente intelectual de Javier Milei y uno de los grandes exponentes vivos de la Escuela Austriaca de Economía.</p></div>
     </div>
 
-    <div class="tl-row" data-value="Conferencia 2: miércoles 10 de 15:45 a 16:45" data-price="0" data-label="Conferencia 2 — mié 10 junio">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Mié 10 junio</span>
-      <div class="tl-content"><h3>Conferencia 2</h3><p>Ponente y tema por confirmar.</p></div>
+    <div class="tl-row" data-value="" data-price="0" data-label="Carlos Rodríguez Braun — Cómo hacer la economía apasionante">
+      <span class="tl-fecha">Por confirmar</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Cómo hacer la economía apasionante</h3></div><p>Carlos Rodríguez Braun — el economista liberal que más oyen los no liberales (en la radio).</p></div>
     </div>
 
-    <div class="tl-row" data-value="Conferencia 3: miércoles 17 de 15:45 a 16:45" data-price="0" data-label="Conferencia 3 — mié 17 junio">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Mié 17 junio</span>
-      <div class="tl-content"><h3>Conferencia 3</h3><p>Ponente y tema por confirmar.</p></div>
+    <div class="tl-row" data-value="" data-price="0" data-label="Juan Ramón Rallo — Cómo difundir el liberalismo a un millón de personas">
+      <span class="tl-fecha">Por confirmar</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Cómo difundir el liberalismo a un millón de personas</h3></div><p>Juan Ramón Rallo — el economista liberal más seguido de España en YouTube, con más de 900.000 suscriptores.</p></div>
     </div>
 
-    <div class="tl-row" data-value="Conferencia 4: miércoles 24 de 15:45 a 16:45" data-price="0" data-label="Conferencia 4 — mié 24 junio">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Mié 24 junio</span>
-      <div class="tl-content"><h3>Conferencia 4</h3><p>Ponente y tema por confirmar.</p></div>
+    <div class="tl-row" data-value="" data-price="0" data-label="Deirdre McCloskey — Conferencia">
+      <span class="tl-fecha">Por confirmar</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Conferencia de Deirdre McCloskey</h3></div><p>Una de las intelectuales liberales más importantes del mundo. Autora de <em>The Bourgeois Era</em>, la trilogía que resuelve el gran enigma de Adam Smith.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="" data-price="0" data-label="Gustavo Martínez — Cómo invertir para ser libre">
+      <span class="tl-fecha">Por confirmar</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Cómo invertir para ser libre</h3></div><p>Gustavo Martínez — El profesor de UFM Madrid que predijo la escalada del oro y nadie le creía.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="" data-price="0" data-label="XIX Congreso de Economía Austriaca">
+      <span class="tl-fecha">9–11 junio · 16:00</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>XIX Congreso de Economía Austriaca</h3></div><p>Debate abierto sobre las más recientes aportaciones en economía, política, sociología, filosofía y ética en la tradición de la Escuela Austriaca.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="" data-price="0" data-label="LiberAcción">
+      <span class="tl-fecha">12 junio · 10:00</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>LiberAcción</h3></div><p>Feria del libro liberal: editoriales y autores presentando las últimas novedades del año.</p></div>
     </div>
 
   </div>
@@ -590,40 +655,75 @@
 
 <!-- BLOQUE 4: ACTIVIDADES EN UFM MADRID -->
 <div class="seccion" id="actividades-ufm">
-  <p class="seccion-label">Bloque 4 · Miércoles 17:15–18:45</p>
-  <h2 class="seccion-titulo">Actividades<br>en UFM Madrid.</h2>
-  <div class="timeline">
+  <p class="seccion-label">Te acompañamos</p>
+  <h2 class="seccion-titulo">Madrid, ecosistema empresarial.</h2>
+  <div class="grid">
 
-    <div class="tl-row" data-value="Visita 1: miércoles 3 de 17:15 a 18:45" data-price="0" data-label="Visita 1 — mié 3 junio">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Mié 3 junio</span>
-      <div class="tl-content"><h3>Actividad 1</h3><p>Descripción por confirmar.</p></div>
+    <div class="card" data-value="" data-price="0" data-label="Mercamadrid">
+      <div class="card-img"><img src="img/Mercado Central de Pescados mercamadrid (pasillo).jpg" alt="Mercamadrid"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Por confirmar · 6:00</span>
+          <span class="card-precio gratis">Gratis</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Mercamadrid</h3></div>
+        <p class="card-desc">El mayor mercado de alimentación de Europa y el segundo mercado de pescado del mundo —solo por detrás de Tokio—, con más de 400 especies y 149.540 toneladas comercializadas en 2024.</p>
+      </div>
     </div>
 
-    <div class="tl-row" data-value="Visita 2: miércoles 10 de 17:15 a 18:45" data-price="0" data-label="Visita 2 — mié 10 junio">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Mié 10 junio</span>
-      <div class="tl-content"><h3>Actividad 2</h3><p>Descripción por confirmar.</p></div>
+    <div class="card" data-value="" data-price="0" data-label="Aula 42 — Telefónica">
+      <div class="card-img"><img src="img/Studio-42.jpg" alt="Aula 42 — Telefónica"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Por confirmar · 10:00</span>
+          <span class="card-precio gratis">Gratis</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Aula 42 — Telefónica</h3></div>
+        <p class="card-desc">El campus de programación más innovador y grande de Madrid. Aprende cómo se crea una IA en Distrito Telefónica.</p>
+      </div>
     </div>
 
-    <div class="tl-row" data-value="Visita 3: miércoles 17 de 17:15 a 18:45" data-price="0" data-label="Visita 3 — mié 17 junio">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Mié 17 junio</span>
-      <div class="tl-content"><h3>Actividad 3</h3><p>Descripción por confirmar.</p></div>
+    <div class="card" data-value="" data-price="0" data-label="Fábrica de Cervezas Mahou">
+      <div class="card-img"><img src="img/Visita-a-la-fabrica-de-Mahou-sala-de-barricas.jpg.webp" alt="Fábrica de Cervezas Mahou"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Por confirmar · 8:00</span>
+          <span class="card-precio gratis">Gratis</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Fábrica de Cervezas Mahou</h3></div>
+        <p class="card-desc">La mayor cervecera española: 700 millones de litros al año, presente en más de 70 países. San Miguel, la cerveza española más consumida del mundo.</p>
+      </div>
     </div>
 
-    <div class="tl-row" data-value="Visita 4: miércoles 24 de 17:15 a 18:45" data-price="0" data-label="Visita 4 — mié 24 junio">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Mié 24 junio</span>
-      <div class="tl-content"><h3>Actividad 4</h3><p>Descripción por confirmar.</p></div>
+    <div class="card" data-value="" data-price="100" data-label="South Summit">
+      <div class="card-img"><img src="img/south-summit.jpeg.webp" alt="South Summit"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Vie 5 junio · 18:00</span>
+          <span class="card-precio">100 €</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">South Summit</h3></div>
+        <p class="card-desc">El gran punto de encuentro donde startups, inversores, corporaciones y talento convierten ideas en negocio real. Más de 20.000 asistentes de 133 países, con 7.500 emprendedores y 2.100 inversores.</p>
+      </div>
     </div>
 
-    <div class="tl-row" data-value="Sergio: Gestión del talento; Gustavo o Jose: algo que no sea oro; Alejandro: capitalismo social; IA" data-price="0" data-label="Panel: Sergio / Gustavo / Alejandro">
-      <div class="tl-check">✓</div>
-      <span class="tl-fecha">Por confirmar</span>
-      <div class="tl-content"><h3>Panel: Sergio · Gustavo · Alejandro</h3><p>Gestión del talento · Capitalismo social · IA. Fecha por confirmar.</p></div>
-    </div>
+  </div>
+</div>
 
+<!-- EXPLORA MADRID -->
+<div class="seccion alt" id="explora-madrid">
+  <p class="seccion-label">Por tu cuenta</p>
+  <h2 class="seccion-titulo">Explora Madrid.</h2>
+  <p class="seccion-desc">Cosas que ocurren en Madrid este verano y no son nuestras. Apúntatelas.</p>
+  <div class="explora-sphere">
+    <a href="https://www.museodelprado.es/actualidad/actividad/el-prado-de-noche-2026/948271f2-336d-4a9c-b24a-55730c602644" target="_blank">El Prado de noche</a>
+    <a href="https://ferialibromadrid.com" target="_blank">Feria del Libro</a>
+    <a href="https://phe.es" target="_blank">PHotoEspaña</a>
+    <a href="https://kaloramamadrid.com" target="_blank">Conciertos en Kalorama</a>
+    <a href="https://nochesdelbotanico.com/entradas-artistas" target="_blank">Noches del Botánico</a>
+    <a href="https://www.clasicosenalcala.net/2025/home/" target="_blank">Festival Hispanoamericano del Siglo de Oro</a>
+    <a href="https://madridorgullo.com" target="_blank">Madrid Orgullo</a>
+    <strong>Conciertos de Bad Bunny, Rosalía, Linkin Park, BTS, Alejandro Sanz...</strong>
   </div>
 </div>
 
