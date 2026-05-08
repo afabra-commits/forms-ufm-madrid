@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursos de Verano UFM Madrid 2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap');
+
+    :root {
+      --cream:       #faf6ed;
+      --ivory:       #f0e9d8;
+      --cobalt:      #1e3a8a;
+      --cobalt-dark: #152a6a;
+      --gold:        #c8920a;
+      --gold-light:  #e8b84b;
+      --black:       #1a1a2e;
+      --brown:       #5a4530;
+      --border:      #d4b896;
+      --grey:        #9a8570;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Helvetica Neue', 'DM Sans', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── BARRA FIJA ─────────────────────────────── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--cobalt-dark);
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 52px;
+    }
+
+    .topbar-brand {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      white-space: nowrap;
+    }
+
+    .topbar-nav { display: flex; gap: 0.6rem; }
+
+    .topbar-btn {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.45rem 1.1rem;
+      border: 1.5px solid transparent;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .topbar-btn.primary  { background: var(--gold); color: #fff; border-color: var(--gold); }
+    .topbar-btn.primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .topbar-btn.secondary { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.25); }
+    .topbar-btn.secondary:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+
+    #formulario-llegada, #separador-agenda { scroll-margin-top: 52px; }
+
+    /* ─── PORTADA ────────────────────────────────── */
+    .portada {
+      position: relative;
+      height: 92vh;
+      margin-top: 52px;
+      overflow: hidden;
+    }
+
+    .portada img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+    .portada-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(21,42,106,0.88) 0%, rgba(21,42,106,0.3) 45%, transparent 100%);
+    }
+
+    .portada-texto {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 5vh 5%; color: #fff;
+    }
+
+    .eyebrow {
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 1rem;
+    }
+
+    .portada-texto h1 {
+      font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 700; line-height: 0.95;
+      letter-spacing: -0.03em; margin-bottom: 1.4rem;
+    }
+
+    .portada-texto p {
+      font-size: clamp(1rem, 1.6vw, 1.3rem);
+      font-weight: 300; color: rgba(255,255,255,0.85);
+      line-height: 1.65; max-width: 520px;
+    }
+
+    /* ─── SECCIONES ──────────────────────────────── */
+    .seccion { padding: 6vh 5%; border-bottom: 1px solid var(--border); }
+    .seccion.alt { background: var(--ivory); }
+    .seccion.cobalt { background: var(--cobalt); color: #fff; border-bottom: none; }
+
+    .seccion-label {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .seccion.cobalt .seccion-label { color: var(--gold-light); }
+
+    .seccion-titulo {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      line-height: 1.0; margin-bottom: 1rem;
+    }
+
+    .seccion-desc {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-weight: 300; color: var(--brown);
+      line-height: 1.7; max-width: 600px; margin-bottom: 3.5vh;
+    }
+    .seccion.cobalt .seccion-titulo { color: #fff; }
+    .seccion.cobalt .seccion-desc { color: rgba(255,255,255,0.8); }
+
+    /* ─── FORM (seguridad) ───────────────────────── */
+    .form-wrapper iframe {
+      width: 100%; border: 2px solid var(--border); display: block; background: #fff;
+    }
+
+    /* ─── SEPARADOR ──────────────────────────────── */
+    .separador {
+      background: var(--cobalt); padding: 5vh 5%;
+      border-bottom: 4px solid var(--gold);
+      display: flex; gap: 4rem; align-items: baseline;
+    }
+    .separador h2 {
+      font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      line-height: 1.0; color: #fff; flex-shrink: 0;
+    }
+    .separador p {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      font-weight: 300; color: rgba(255,255,255,0.78); line-height: 1.7;
+    }
+
+    /* ─── NAV AGENDA ─────────────────────────────── */
+    .nav-agenda {
+      padding: 2vh 5%; display: flex; gap: 2rem; flex-wrap: wrap;
+      background: var(--cobalt-dark);
+      border-bottom: 1px solid rgba(200,146,10,0.4);
+    }
+    .nav-agenda a {
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); text-decoration: none;
+      padding-bottom: 2px; border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .nav-agenda a:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+    /* ─── TARJETAS SELECCIONABLES ────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1px; background: var(--border);
+    }
+
+    .card {
+      background: var(--cream);
+      display: flex; flex-direction: column;
+      position: relative; cursor: pointer;
+      transition: outline 0.12s;
+      outline: 2px solid transparent;
+      outline-offset: -2px;
+    }
+    .seccion.alt .card { background: var(--ivory); }
+
+    .card:hover { outline-color: var(--gold); }
+    .card.selected { outline-color: var(--cobalt); background: #eef1fa; }
+    .seccion.alt .card.selected { background: #e4e9f5; }
+
+    /* Indicador de selección en esquina */
+    .card-check {
+      position: absolute; top: 0.8rem; right: 0.8rem;
+      width: 26px; height: 26px; z-index: 2;
+      background: rgba(255,255,255,0.95);
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700;
+      color: transparent;
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+    }
+    .card.selected .card-check {
+      background: var(--cobalt); border-color: var(--cobalt); color: #fff;
+    }
+
+    .card-img {
+      width: 100%; aspect-ratio: 16/9;
+      overflow: hidden; background: var(--ivory);
+    }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s; }
+    .card:hover .card-img img { transform: scale(1.04); }
+    .card-img .placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--grey);
+    }
+
+    .card-body {
+      padding: 2.5vh 1.8vw; flex: 1;
+      display: flex; flex-direction: column; gap: 0.55rem;
+    }
+
+    .card-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+
+    .card-fecha { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cobalt); }
+
+    .card-precio { font-size: 0.78rem; font-weight: 700; color: var(--gold); white-space: nowrap; }
+    .card-precio.gratis { color: var(--grey); font-weight: 500; }
+    .card-precio.pendiente { color: var(--brown); font-weight: 500; font-style: italic; }
+
+    .card-titulo { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; line-height: 1.25; color: var(--black); }
+    .card-desc { font-size: 0.95rem; font-weight: 300; color: var(--brown); line-height: 1.65; flex: 1; }
+
+    /* ─── TIMELINE SELECCIONABLE ─────────────────── */
+    .timeline { display: flex; flex-direction: column; }
+
+    .tl-row {
+      display: flex; gap: 1.5rem;
+      padding: 2.2vh 0.8rem;
+      border-bottom: 1px solid var(--border);
+      align-items: center; cursor: pointer;
+      transition: background 0.12s;
+      margin: 0 -0.8rem;
+    }
+    .tl-row:last-child { border-bottom: none; }
+    .tl-row:hover { background: rgba(200,146,10,0.07); }
+    .tl-row.selected { background: #eef1fa; }
+    .seccion.alt .tl-row.selected { background: #e4e9f5; }
+
+    .tl-check {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+      color: transparent; background: rgba(255,255,255,0.9);
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+    }
+    .tl-row.selected .tl-check { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+
+    .tl-fecha {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cobalt); min-width: 140px;
+    }
+    .tl-content h3 { font-size: clamp(1rem, 1.4vw, 1.15rem); font-weight: 700; margin-bottom: 0.2rem; color: var(--black); }
+    .tl-content p { font-size: 0.9rem; font-weight: 300; color: var(--brown); line-height: 1.5; }
+
+    /* ─── BARRA CARRITO (fixed bottom) ───────────── */
+    .cart-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 150;
+      background: var(--cobalt-dark);
+      border-top: 2px solid var(--gold);
+      padding: 0 5%;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .cart-bar.visible { transform: translateY(0); }
+
+    .cart-info {
+      display: flex; align-items: baseline; gap: 1.5rem;
+    }
+    .cart-count {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+    .cart-total {
+      font-size: 1.2rem; font-weight: 700; color: var(--gold-light);
+    }
+    .cart-total .pendiente-note {
+      font-size: 0.72rem; font-weight: 400;
+      color: rgba(255,255,255,0.5); margin-left: 0.4rem;
+    }
+
+    .cart-btn {
+      background: var(--gold); color: #fff;
+      border: none; cursor: pointer;
+      font-family: inherit;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.6rem 1.5rem;
+      transition: background 0.15s;
+    }
+    .cart-btn:hover { background: var(--gold-light); }
+
+    /* ─── MODAL ──────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(21,42,106,0.75);
+      z-index: 300;
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--cream);
+      max-width: 560px; width: 100%;
+      max-height: 85vh; overflow-y: auto;
+      padding: 3rem;
+    }
+
+    .modal h2 {
+      font-size: 1.6rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 2rem;
+      color: var(--cobalt);
+    }
+
+    .modal-lista {
+      border-top: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-item {
+      display: flex; justify-content: space-between;
+      align-items: baseline; gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .modal-item-name { font-weight: 400; color: var(--black); flex: 1; }
+    .modal-item-price { font-weight: 700; color: var(--gold); white-space: nowrap; }
+    .modal-item-price.gratis { color: var(--grey); font-weight: 400; }
+    .modal-item-price.pendiente { color: var(--brown); font-style: italic; }
+
+    .modal-total {
+      display: flex; justify-content: space-between;
+      align-items: baseline;
+      padding: 1rem 0;
+      font-size: 1.1rem; font-weight: 700;
+      border-bottom: 2px solid var(--cobalt);
+      margin-bottom: 1.5rem;
+    }
+    .modal-total-amount { color: var(--cobalt); }
+
+    .modal-compromiso {
+      font-size: 0.88rem; font-weight: 300;
+      color: var(--brown); line-height: 1.65;
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .modal-acciones { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-enviar {
+      flex: 1; background: var(--cobalt); color: #fff;
+      border: none; cursor: pointer; font-family: inherit;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.9rem 1.5rem;
+      transition: background 0.15s;
+    }
+    .btn-enviar:hover { background: var(--cobalt-dark); }
+
+    .btn-volver {
+      background: none; color: var(--grey);
+      border: 1.5px solid var(--border); cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.9rem 1.2rem;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-volver:hover { border-color: var(--black); color: var(--black); }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      padding: 3vh 5%; font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem;
+      background: var(--cobalt-dark);
+      border-top: 2px solid var(--gold);
+      margin-bottom: 60px; /* espacio para la cart-bar */
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 700px) {
+      .portada { height: 80vh; }
+      .separador { flex-direction: column; gap: 1rem; }
+      .grid { grid-template-columns: 1fr; }
+      .tl-row { flex-direction: row; }
+      .tl-fecha { min-width: 110px; }
+      footer { flex-direction: column; }
+      .topbar-brand { display: none; }
+      .modal { padding: 2rem 1.5rem; }
+      .cart-info { gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BARRA FIJA -->
+<nav class="topbar">
+  <span class="topbar-brand">UFM Madrid · Verano 2026</span>
+  <div class="topbar-nav">
+    <a href="#formulario-llegada" class="topbar-btn secondary">Seguridad e imagen</a>
+    <a href="#separador-agenda"   class="topbar-btn primary">Agenda de actividades</a>
+  </div>
+</nav>
+
+<!-- PORTADA -->
+<div class="portada">
+  <img src="img/campus_azulejo.png" alt="Campus UFM Madrid">
+  <div class="portada-overlay"></div>
+  <div class="portada-texto">
+    <p class="eyebrow">UFM Madrid · Verano 2026</p>
+    <h1>Bienvenidos<br>a Madrid.</h1>
+    <p>Antes de tu llegada necesitamos que completes el siguiente formulario. Solo te llevará unos minutos.</p>
+  </div>
+</div>
+
+<!-- FORMULARIO 1: SEGURIDAD E IMAGEN -->
+<div class="seccion" id="formulario-llegada">
+  <p class="seccion-label">Formulario de llegada</p>
+  <h2 class="seccion-titulo">Seguridad<br>e imagen.</h2>
+  <p class="seccion-desc">Datos de emergencia, contactos y consentimiento de uso de imagen. Esta información es estrictamente confidencial y solo accede a ella la dirección y coordinación académica del campus.</p>
+  <div class="form-wrapper">
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSf2a6zKV09TSdOhNA1OQj5lqfgEyC5y5Z_2xCNsWI_w8951Bw/viewform?embedded=true"
+      height="1794"
+      title="Formulario de seguridad e imagen">Cargando…</iframe>
+  </div>
+</div>
+
+<!-- SEPARADOR -->
+<div class="separador" id="separador-agenda">
+  <h2>Actividades<br>extracurriculares.</h2>
+  <p>Además del programa académico, hemos preparado una agenda de actividades opcionales. Marca las que te interesan y envía tu selección al final. Las que tienen coste se cargan en tu cuenta de MiU.</p>
+</div>
+
+<div class="nav-agenda">
+  <a href="#vive-ufm">Vive UFM Madrid</a>
+  <a href="#vive-madrid">Vive Madrid</a>
+  <a href="#conferencias">Conferencias</a>
+  <a href="#actividades-ufm">Actividades en UFM</a>
+</div>
+
+<!-- BLOQUE 1: VIVE UFM MADRID -->
+<div class="seccion alt" id="vive-ufm">
+  <p class="seccion-label">Bloque 1</p>
+  <h2 class="seccion-titulo">Vive UFM Madrid.</h2>
+  <div class="grid">
+
+    <div class="card" data-value="Miércoles 3 de junio, 14h: bienvenida en el campus y tapas madrileñas (gratis)" data-price="0" data-label="Bienvenida en el campus y tapas madrileñas">
+      <div class="card-check">✓</div>
+      <div class="card-img"><div class="placeholder">foto</div></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Mié 3 junio · 14:00</span>
+          <span class="card-precio gratis">Gratis</span>
+        </div>
+        <h3 class="card-titulo">Bienvenida en el campus y tapas madrileñas</h3>
+        <p class="card-desc">Descripción por añadir.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Jueves 25 de junio: paella y fiesta de despedida (gratis)" data-price="0" data-label="Paella y fiesta de despedida">
+      <div class="card-check">✓</div>
+      <div class="card-img"><div class="placeholder">foto</div></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Jue 25 junio</span>
+          <span class="card-precio gratis">Gratis</span>
+        </div>
+        <h3 class="card-titulo">Paella y fiesta de despedida</h3>
+        <p class="card-desc">Descripción por añadir.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLOQUE 2: VIVE MADRID -->
+<div class="seccion" id="vive-madrid">
+  <p class="seccion-label">Bloque 2</p>
+  <h2 class="seccion-titulo">Vive Madrid.</h2>
+  <div class="grid">
+
+    <div class="card" data-value="Viernes 5 de junio, 10h: South Summit www.southsummit.io/es (100 euros)" data-price="100" data-label="South Summit">
+      <div class="card-check">✓</div>
+      <div class="card-img"><div class="placeholder">foto</div></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Vie 5 junio · 10:00</span>
+          <span class="card-precio">100 €</span>
+        </div>
+        <h3 class="card-titulo">South Summit</h3>
+        <p class="card-desc">Descripción por añadir.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Viernes 12 de junio: visita a Toledo (xxx euros)" data-price="-1" data-label="Visita a Toledo">
+      <div class="card-check">✓</div>
+      <div class="card-img"><div class="placeholder">foto</div></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Vie 12 junio</span>
+          <span class="card-precio pendiente">Precio por confirmar</span>
+        </div>
+        <h3 class="card-titulo">Visita a Toledo</h3>
+        <p class="card-desc">Descripción por añadir.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Viernes 19 de junio: museo del Prado (gratis???)" data-price="0" data-label="Museo del Prado">
+      <div class="card-check">✓</div>
+      <div class="card-img"><div class="placeholder">foto</div></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">Vie 19 junio</span>
+          <span class="card-precio gratis">Gratis</span>
+        </div>
+        <h3 class="card-titulo">Museo del Prado</h3>
+        <p class="card-desc">Descripción por añadir.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLOQUE 3: CONFERENCIAS -->
+<div class="seccion alt" id="conferencias">
+  <p class="seccion-label">Bloque 3 · Miércoles 15:45–16:45</p>
+  <h2 class="seccion-titulo">Conferencias.</h2>
+  <div class="timeline">
+
+    <div class="tl-row" data-value="Conferencia 1: miércoles 3 de 15:45 a 16:45" data-price="0" data-label="Conferencia 1 — mié 3 junio">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Mié 3 junio</span>
+      <div class="tl-content"><h3>Conferencia 1</h3><p>Ponente y tema por confirmar.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Conferencia 2: miércoles 10 de 15:45 a 16:45" data-price="0" data-label="Conferencia 2 — mié 10 junio">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Mié 10 junio</span>
+      <div class="tl-content"><h3>Conferencia 2</h3><p>Ponente y tema por confirmar.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Conferencia 3: miércoles 17 de 15:45 a 16:45" data-price="0" data-label="Conferencia 3 — mié 17 junio">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Mié 17 junio</span>
+      <div class="tl-content"><h3>Conferencia 3</h3><p>Ponente y tema por confirmar.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Conferencia 4: miércoles 24 de 15:45 a 16:45" data-price="0" data-label="Conferencia 4 — mié 24 junio">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Mié 24 junio</span>
+      <div class="tl-content"><h3>Conferencia 4</h3><p>Ponente y tema por confirmar.</p></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLOQUE 4: ACTIVIDADES EN UFM MADRID -->
+<div class="seccion" id="actividades-ufm">
+  <p class="seccion-label">Bloque 4 · Miércoles 17:15–18:45</p>
+  <h2 class="seccion-titulo">Actividades<br>en UFM Madrid.</h2>
+  <div class="timeline">
+
+    <div class="tl-row" data-value="Visita 1: miércoles 3 de 17:15 a 18:45" data-price="0" data-label="Visita 1 — mié 3 junio">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Mié 3 junio</span>
+      <div class="tl-content"><h3>Actividad 1</h3><p>Descripción por confirmar.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Visita 2: miércoles 10 de 17:15 a 18:45" data-price="0" data-label="Visita 2 — mié 10 junio">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Mié 10 junio</span>
+      <div class="tl-content"><h3>Actividad 2</h3><p>Descripción por confirmar.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Visita 3: miércoles 17 de 17:15 a 18:45" data-price="0" data-label="Visita 3 — mié 17 junio">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Mié 17 junio</span>
+      <div class="tl-content"><h3>Actividad 3</h3><p>Descripción por confirmar.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Visita 4: miércoles 24 de 17:15 a 18:45" data-price="0" data-label="Visita 4 — mié 24 junio">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Mié 24 junio</span>
+      <div class="tl-content"><h3>Actividad 4</h3><p>Descripción por confirmar.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Sergio: Gestión del talento; Gustavo o Jose: algo que no sea oro; Alejandro: capitalismo social; IA" data-price="0" data-label="Panel: Sergio / Gustavo / Alejandro">
+      <div class="tl-check">✓</div>
+      <span class="tl-fecha">Por confirmar</span>
+      <div class="tl-content"><h3>Panel: Sergio · Gustavo · Alejandro</h3><p>Gestión del talento · Capitalismo social · IA. Fecha por confirmar.</p></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Universidad Francisco Marroquín · Campus Madrid</span>
+  <span>Calle Arturo Soria 245, 28033 Madrid</span>
+</footer>
+
+<!-- BARRA CARRITO -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-info">
+    <span class="cart-count" id="cartCount">0 actividades</span>
+    <span class="cart-total" id="cartTotal">0 €</span>
+  </div>
+  <button class="cart-btn" onclick="abrirModal()">Revisar e inscribirse →</button>
+</div>
+
+<!-- MODAL CONFIRMACIÓN -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>Tu selección.</h2>
+    <div class="modal-lista" id="modalLista"></div>
+    <div class="modal-total">
+      <span>Total</span>
+      <span class="modal-total-amount" id="modalTotal">0 €</span>
+    </div>
+    <p class="modal-compromiso">
+      Autorizo cargar el importe en mi cuenta corriente de la Universidad, y me comprometo a acudir a las actividades seleccionadas.
+    </p>
+    <div class="modal-acciones">
+      <button class="btn-enviar" onclick="enviarSeleccion()">Acepto y envío →</button>
+      <button class="btn-volver" onclick="cerrarModal()">Volver</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSdMPBk9PglMUOcyvTPu8N4sFJMh_5JcR_9O2L4Ey-Wl4hTJkA/viewform?usp=pp_url';
+  const ENTRY    = 'entry.353066268';
+
+  const seleccionados = new Set();
+
+  // Registrar clicks en cards y tl-rows
+  document.querySelectorAll('.card[data-value], .tl-row[data-value]').forEach(el => {
+    el.addEventListener('click', () => {
+      const val = el.dataset.value;
+      if (seleccionados.has(val)) {
+        seleccionados.delete(val);
+        el.classList.remove('selected');
+      } else {
+        seleccionados.add(val);
+        el.classList.add('selected');
+      }
+      actualizarBarra();
+    });
+  });
+
+  function getSeleccionados() {
+    return [...document.querySelectorAll('.card[data-value].selected, .tl-row[data-value].selected')]
+      .map(el => ({ value: el.dataset.value, price: parseInt(el.dataset.price), label: el.dataset.label }));
+  }
+
+  function actualizarBarra() {
+    const items    = getSeleccionados();
+    const n        = items.length;
+    const total    = items.reduce((s, i) => s + (i.price > 0 ? i.price : 0), 0);
+    const pendiente = items.some(i => i.price === -1);
+
+    const bar = document.getElementById('cartBar');
+    bar.classList.toggle('visible', n > 0);
+
+    document.getElementById('cartCount').textContent = n === 1 ? '1 actividad' : n + ' actividades';
+    document.getElementById('cartTotal').innerHTML =
+      total + ' €' + (pendiente ? '<span class="pendiente-note">+ precio pendiente</span>' : '');
+  }
+
+  function abrirModal() {
+    const items = getSeleccionados();
+    if (!items.length) return;
+
+    const total    = items.reduce((s, i) => s + (i.price > 0 ? i.price : 0), 0);
+    const pendiente = items.some(i => i.price === -1);
+
+    const lista = document.getElementById('modalLista');
+    lista.innerHTML = items.map(i => `
+      <div class="modal-item">
+        <span class="modal-item-name">${i.label}</span>
+        <span class="modal-item-price ${i.price === 0 ? 'gratis' : i.price === -1 ? 'pendiente' : ''}">
+          ${i.price > 0 ? i.price + ' €' : i.price === -1 ? 'Por confirmar' : 'Gratis'}
+        </span>
+      </div>`).join('');
+
+    document.getElementById('modalTotal').innerHTML =
+      total + ' €' + (pendiente ? '<span class="pendiente-note" style="font-size:0.7rem;margin-left:0.4rem">+ precio pendiente</span>' : '');
+
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function cerrarModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+
+  function enviarSeleccion() {
+    const items = getSeleccionados();
+    let url = FORM_BASE;
+    items.forEach(i => { url += '&' + ENTRY + '=' + encodeURIComponent(i.value); });
+    window.open(url, '_blank');
+    cerrarModal();
+  }
+
+  // Cerrar modal al hacer clic fuera
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModal();
+  });
+</script>
+</body>
+</html>
