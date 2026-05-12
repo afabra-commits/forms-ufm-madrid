@@ -274,7 +274,7 @@
     .tl-fecha {
       font-size: 0.75rem; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--cobalt); min-width: 140px;
+      color: var(--cobalt); width: 210px; flex-shrink: 0;
     }
     .tl-content h3 { font-size: clamp(1rem, 1.4vw, 1.15rem); font-weight: 700; margin-bottom: 0.2rem; color: var(--black); }
     .tl-content p { font-size: 0.9rem; font-weight: 300; color: var(--brown); line-height: 1.5; }
@@ -455,7 +455,7 @@
       #vive-madrid .grid,
       #actividades-ufm .grid { grid-template-columns: repeat(2, 1fr); }
       .tl-row { flex-direction: row; }
-      .tl-fecha { min-width: 110px; }
+      .tl-fecha { width: 110px; flex-shrink: 0; }
       footer { flex-direction: column; }
       .topbar-brand { display: none; }
       .modal { padding: 2rem 1.5rem; }
