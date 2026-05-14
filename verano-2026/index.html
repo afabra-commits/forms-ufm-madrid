@@ -467,6 +467,36 @@
       .modal { padding: 2rem 1.5rem; }
       .cart-info { gap: 0.8rem; }
     }
+
+    /* ─── PESTAÑAS ───────────────────────────────── */
+    .tabs-bar {
+      display: flex;
+      background: var(--cobalt-dark);
+      border-bottom: 2px solid var(--gold);
+      position: sticky;
+      top: 52px;
+      z-index: 190;
+    }
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      padding: 1.1rem 1rem;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+    .tab-btn:hover:not(.active) { color: rgba(255,255,255,0.75); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
   </style>
 </head>
 <body>
@@ -474,10 +504,6 @@
 <!-- BARRA FIJA -->
 <nav class="topbar">
   <span class="topbar-brand">UFM Madrid · Verano 2026</span>
-  <div class="topbar-nav">
-    <a href="#formulario-llegada" class="topbar-btn primary">Para tu tranquilidad y la nuestra</a>
-    <a href="#separador-agenda"   class="topbar-btn primary">Fuera del aula</a>
-  </div>
 </nav>
 
 <!-- PORTADA -->
@@ -489,6 +515,15 @@
     <h1>Bienvenidos<br>a Madrid.</h1>
   </div>
 </div>
+
+<!-- PESTAÑAS -->
+<div class="tabs-bar">
+  <button class="tab-btn active" data-panel="panel-agenda">Fuera del aula</button>
+  <button class="tab-btn" data-panel="panel-formulario">Para tu tranquilidad y la nuestra</button>
+</div>
+
+<!-- PANEL: FORMULARIO -->
+<div class="tab-panel" id="panel-formulario">
 
 <!-- FORMULARIO 1: SEGURIDAD E IMAGEN -->
 <div class="seccion" id="formulario-llegada">
@@ -503,6 +538,11 @@
       title="Formulario de seguridad e imagen">Cargando…</iframe>
   </div>
 </div>
+
+</div><!-- /panel-formulario -->
+
+<!-- PANEL: FUERA DEL AULA -->
+<div class="tab-panel active" id="panel-agenda">
 
 <!-- SEPARADOR -->
 <div class="separador" id="separador-agenda">
@@ -730,6 +770,8 @@
   <span>Calle Arturo Soria 245, 28033 Madrid</span>
 </footer>
 
+</div><!-- /panel-agenda -->
+
 <!-- BARRA CARRITO -->
 <div class="cart-bar" id="cartBar">
   <div class="cart-info">
@@ -759,6 +801,17 @@
 </div>
 
 <script>
+  // ── Pestañas ────────────────────────────────────
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.panel).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
   const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSdMPBk9PglMUOcyvTPu8N4sFJMh_5JcR_9O2L4Ey-Wl4hTJkA/viewform?usp=pp_url';
   const ENTRY    = 'entry.353066268';
 
