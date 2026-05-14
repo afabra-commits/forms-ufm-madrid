@@ -486,12 +486,12 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #fff;
+      color: rgba(255,255,255,0.45);
       padding: 1.1rem 1rem;
-      transition: background 0.15s, border-color 0.15s;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
-    .tab-btn.active { background: #9e2117; border-bottom-color: var(--gold); }
-    .tab-btn:hover:not(.active) { background: #a8241a; }
+    .tab-btn.active { background: #9e2117; border-bottom-color: var(--gold); color: #fff; }
+    .tab-btn:hover:not(.active) { background: #a8241a; color: rgba(255,255,255,0.75); }
 
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
