@@ -471,29 +471,27 @@
     /* ─── PESTAÑAS ───────────────────────────────── */
     .tabs-bar {
       display: flex;
-      background: var(--cobalt-dark);
-      border-bottom: 2px solid var(--gold);
       position: sticky;
       top: 52px;
       z-index: 190;
     }
     .tab-btn {
       flex: 1;
-      background: none;
+      background: #c0291d;
       border: none;
       border-bottom: 3px solid transparent;
       cursor: pointer;
       font-family: inherit;
-      font-size: 0.82rem;
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: #fff;
       padding: 1.1rem 1rem;
-      transition: color 0.15s, border-color 0.15s;
+      transition: background 0.15s, border-color 0.15s;
     }
-    .tab-btn.active { color: var(--gold-light); border-bottom-color: var(--gold); }
-    .tab-btn:hover:not(.active) { color: rgba(255,255,255,0.75); }
+    .tab-btn.active { background: #9e2117; border-bottom-color: var(--gold); }
+    .tab-btn:hover:not(.active) { background: #a8241a; }
 
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
@@ -808,7 +806,6 @@
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById(btn.dataset.panel).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 
