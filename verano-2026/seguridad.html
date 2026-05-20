@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de seguridad — UFM Madrid · Verano 2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap');
+
+    :root {
+      --cream:       #faf6ed;
+      --ivory:       #f0e9d8;
+      --cobalt:      #1e3a8a;
+      --cobalt-dark: #152a6a;
+      --gold:        #c8920a;
+      --gold-light:  #e8b84b;
+      --black:       #1a1a2e;
+      --brown:       #5a4530;
+      --border:      #d4b896;
+      --grey:        #9a8570;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Helvetica Neue', 'DM Sans', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── BARRA FIJA ─────────────────────────────── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--cobalt-dark);
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 52px;
+    }
+
+    .topbar-brand {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      white-space: nowrap;
+    }
+
+    .seccion a { color: var(--cobalt); text-decoration: none; border-bottom: 1px solid var(--border); }
+    .seccion a:hover { border-color: var(--cobalt); }
+
+    #formulario-llegada { scroll-margin-top: 52px; }
+
+    /* ─── PORTADA ────────────────────────────────── */
+    .portada {
+      position: relative;
+      height: 92vh;
+      margin-top: 52px;
+      overflow: hidden;
+    }
+
+    .portada img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+    .portada-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(21,42,106,0.88) 0%, rgba(21,42,106,0.3) 45%, transparent 100%);
+    }
+
+    .portada-texto {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 5vh 5%; color: #fff;
+    }
+
+    .eyebrow {
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 1rem;
+    }
+
+    .portada-texto h1 {
+      font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 700; line-height: 0.95;
+      letter-spacing: -0.03em; margin-bottom: 1.4rem;
+    }
+
+    .portada-texto p {
+      font-size: clamp(1rem, 1.6vw, 1.3rem);
+      font-weight: 400; color: rgba(255,255,255,0.85);
+      line-height: 1.65; max-width: 520px;
+    }
+
+    /* ─── SECCIONES ──────────────────────────────── */
+    .seccion { padding: 6vh 5%; border-bottom: 1px solid var(--border); }
+
+    .seccion-label {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+
+    .seccion-titulo {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      line-height: 1.0; margin-bottom: 1rem;
+    }
+
+    .seccion-desc {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-weight: 400; color: var(--brown);
+      line-height: 1.7; max-width: 600px; margin-bottom: 3.5vh;
+    }
+
+    /* ─── FORM (seguridad) ───────────────────────── */
+    .form-wrapper iframe {
+      width: 100%; border: 2px solid var(--cream); display: block; background: var(--cream);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      padding: 3vh 5%; font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem;
+      background: var(--cobalt-dark);
+      border-top: 2px solid var(--gold);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 700px) {
+      .portada { height: 80vh; }
+      footer { flex-direction: column; }
+      .topbar-brand { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BARRA FIJA -->
+<nav class="topbar">
+  <span class="topbar-brand">UFM Madrid · Verano 2026</span>
+</nav>
+
+<!-- PORTADA -->
+<div class="portada">
+  <img src="img/campus_azulejo.png" alt="Campus UFM Madrid">
+  <div class="portada-overlay"></div>
+  <div class="portada-texto">
+    <p class="eyebrow">UFM Madrid · Verano 2026</p>
+    <h1>Bienvenidos<br>a Madrid.</h1>
+  </div>
+</div>
+
+<!-- FORMULARIO: SEGURIDAD E IMAGEN -->
+<div class="seccion" id="formulario-llegada">
+  <p class="seccion-label">Formulario de llegada</p>
+  <h2 class="seccion-titulo">Para tu tranquilidad y la nuestra.</h2>
+  <p class="seccion-desc">Antes de tu llegada necesitamos que completes el siguiente formulario. Solo te llevará unos minutos. Esta información es estrictamente confidencial.</p>
+  <p class="seccion-desc"><strong>Si no ves el formulario, ábrelo directamente: <a href="https://docs.google.com/forms/d/e/1FAIpQLSf2a6zKV09TSdOhNA1OQj5lqfgEyC5y5Z_2xCNsWI_w8951Bw/viewform" target="_blank">enlace al formulario</a>.</strong></p>
+  <div class="form-wrapper">
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSf2a6zKV09TSdOhNA1OQj5lqfgEyC5y5Z_2xCNsWI_w8951Bw/viewform?embedded=true"
+      height="3200"
+      scrolling="no"
+      title="Formulario de seguridad e imagen">Cargando…</iframe>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Universidad Francisco Marroquín · Campus Madrid</span>
+  <span>Calle Arturo Soria 245, 28033 Madrid</span>
+</footer>
+
+</body>
+</html>

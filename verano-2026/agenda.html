@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividades extraacadémicas — UFM Madrid · Verano 2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap');
+
+    :root {
+      --cream:       #faf6ed;
+      --ivory:       #f0e9d8;
+      --cobalt:      #1e3a8a;
+      --cobalt-dark: #152a6a;
+      --gold:        #c8920a;
+      --gold-light:  #e8b84b;
+      --black:       #1a1a2e;
+      --brown:       #5a4530;
+      --border:      #d4b896;
+      --grey:        #9a8570;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Helvetica Neue', 'DM Sans', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── BARRA FIJA ─────────────────────────────── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--cobalt-dark);
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 52px;
+    }
+
+    .topbar-brand {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      white-space: nowrap;
+    }
+
+    .seccion a { color: var(--cobalt); text-decoration: none; border-bottom: 1px solid var(--border); }
+    .seccion a:hover { border-color: var(--cobalt); }
+
+    #separador-agenda { scroll-margin-top: 52px; }
+
+    /* ─── PORTADA ────────────────────────────────── */
+    .portada {
+      position: relative;
+      height: 92vh;
+      margin-top: 52px;
+      overflow: hidden;
+    }
+
+    .portada img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+    .portada-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(21,42,106,0.88) 0%, rgba(21,42,106,0.3) 45%, transparent 100%);
+    }
+
+    .portada-texto {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 5vh 5%; color: #fff;
+    }
+
+    .eyebrow {
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 1rem;
+    }
+
+    .portada-texto h1 {
+      font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 700; line-height: 0.95;
+      letter-spacing: -0.03em; margin-bottom: 1.4rem;
+    }
+
+    .portada-texto p {
+      font-size: clamp(1rem, 1.6vw, 1.3rem);
+      font-weight: 400; color: rgba(255,255,255,0.85);
+      line-height: 1.65; max-width: 520px;
+    }
+
+    /* ─── SECCIONES ──────────────────────────────── */
+    .seccion { padding: 6vh 5%; border-bottom: 1px solid var(--border); }
+    .seccion.alt { background: var(--ivory); }
+    .seccion.cobalt { background: var(--cobalt); color: #fff; border-bottom: none; }
+
+    .seccion-label {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .seccion.cobalt .seccion-label { color: var(--gold-light); }
+
+    .seccion-titulo {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      line-height: 1.0; margin-bottom: 1rem;
+    }
+
+    .seccion-desc {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-weight: 400; color: var(--brown);
+      line-height: 1.7; max-width: 600px; margin-bottom: 3.5vh;
+    }
+    .seccion.cobalt .seccion-titulo { color: #fff; }
+    .seccion.cobalt .seccion-desc { color: rgba(255,255,255,0.8); }
+
+    .seccion-subtitulo {
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+      font-weight: 400; color: var(--brown);
+      line-height: 1.6; margin-top: -0.5rem; margin-bottom: 2.5vh;
+    }
+
+    /* ─── SEPARADOR ──────────────────────────────── */
+    .separador {
+      background: var(--cobalt); padding: 5vh 5%;
+      border-bottom: 4px solid var(--gold);
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .separador h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      line-height: 1.0; color: #fff;
+    }
+    .separador p {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      font-weight: 400; color: rgba(255,255,255,0.78); line-height: 1.7;
+    }
+
+    /* ─── NAV AGENDA ─────────────────────────────── */
+    .nav-agenda {
+      padding: 2vh 5%; display: flex; gap: 2rem; flex-wrap: wrap;
+      background: var(--cobalt-dark);
+      border-bottom: 1px solid rgba(200,146,10,0.4);
+    }
+    .nav-agenda a {
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); text-decoration: none;
+      padding-bottom: 2px; border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .nav-agenda a:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+    /* ─── TARJETAS SELECCIONABLES ────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1px; background: var(--border);
+    }
+
+    .card {
+      background: var(--cream);
+      display: flex; flex-direction: column;
+      position: relative; cursor: pointer;
+      transition: outline 0.12s;
+      outline: 2px solid transparent;
+      outline-offset: -2px;
+    }
+    .seccion.alt .card { background: var(--ivory); }
+
+    .card:hover { outline-color: var(--gold); }
+    .card.selected { outline-color: var(--cobalt); background: #eef1fa; }
+    .seccion.alt .card.selected { background: #e4e9f5; }
+
+    .card-check {
+      width: 26px; height: 26px; flex-shrink: 0;
+      background: rgba(255,255,255,0.95);
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700;
+      color: transparent;
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+    }
+    .card.selected .card-check {
+      background: var(--cobalt); border-color: var(--cobalt); color: #fff;
+    }
+
+    .card-title-row { display: flex; align-items: flex-start; gap: 0.55rem; }
+    .tl-title-row { display: flex; align-items: flex-start; gap: 0.55rem; margin-bottom: 0.2rem; }
+
+    .card-img {
+      width: 100%; aspect-ratio: 16/9;
+      overflow: hidden; background: var(--ivory);
+    }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s; }
+    .card:hover .card-img img { transform: scale(1.04); }
+    .card-img .placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--grey);
+    }
+
+    .card-body {
+      padding: 2.5vh 1.8vw; flex: 1;
+      display: flex; flex-direction: column; gap: 0.55rem;
+    }
+
+    .card-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+
+    .card-fecha { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cobalt); }
+
+    .card-precio { font-size: 0.78rem; font-weight: 700; color: var(--gold); white-space: nowrap; }
+    .card-precio.gratis { color: var(--grey); font-weight: 500; }
+    .card-precio.pendiente { color: var(--brown); font-weight: 500; font-style: italic; }
+
+    .card-titulo { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 700; line-height: 1.25; color: var(--black); }
+    .card-desc { font-size: 0.95rem; font-weight: 400; color: var(--brown); line-height: 1.65; flex: 1; }
+
+    /* ─── TIMELINE SELECCIONABLE ─────────────────── */
+    .timeline { display: flex; flex-direction: column; }
+
+    .tl-row {
+      display: flex; gap: 1.5rem;
+      padding: 2.2vh 0.8rem;
+      border-bottom: 1px solid var(--border);
+      align-items: center; cursor: pointer;
+      transition: background 0.12s;
+      margin: 0 -0.8rem;
+    }
+    .tl-row:last-child { border-bottom: none; }
+    .tl-row:hover { background: rgba(200,146,10,0.07); }
+    .tl-row.selected { background: #eef1fa; }
+    .seccion.alt .tl-row.selected { background: #e4e9f5; }
+
+    .tl-check {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+      color: transparent; background: rgba(255,255,255,0.9);
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+    }
+    .tl-row.selected .tl-check { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+
+    .tl-fecha {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cobalt); width: 210px; flex-shrink: 0;
+    }
+    .tl-content h3 { font-size: clamp(1rem, 1.4vw, 1.15rem); font-weight: 700; margin-bottom: 0.2rem; color: var(--black); }
+    .tl-content p { font-size: 0.9rem; font-weight: 400; color: var(--brown); line-height: 1.5; }
+
+    /* ─── BARRA CARRITO (fixed bottom) ───────────── */
+    .cart-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 150;
+      background: var(--cobalt-dark);
+      border-top: 2px solid var(--gold);
+      padding: 0 5%;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .cart-bar.visible { transform: translateY(0); }
+
+    .cart-info {
+      display: flex; align-items: baseline; gap: 1.5rem;
+    }
+    .cart-count {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+    .cart-total {
+      font-size: 1.2rem; font-weight: 700; color: var(--gold-light);
+    }
+    .cart-total .pendiente-note {
+      font-size: 0.72rem; font-weight: 400;
+      color: rgba(255,255,255,0.5); margin-left: 0.4rem;
+    }
+
+    .cart-btn {
+      background: var(--gold); color: #fff;
+      border: none; cursor: pointer;
+      font-family: inherit;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.6rem 1.5rem;
+      transition: background 0.15s;
+    }
+    .cart-btn:hover { background: var(--gold-light); }
+
+    /* ─── MODAL ──────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(21,42,106,0.75);
+      z-index: 300;
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--cream);
+      max-width: 560px; width: 100%;
+      max-height: 85vh; overflow-y: auto;
+      padding: 3rem;
+    }
+
+    .modal h2 {
+      font-size: 1.6rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 2rem;
+      color: var(--cobalt);
+    }
+
+    .modal-lista {
+      border-top: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-item {
+      display: flex; justify-content: space-between;
+      align-items: baseline; gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .modal-item-name { font-weight: 400; color: var(--black); flex: 1; }
+    .modal-item-price { font-weight: 700; color: var(--gold); white-space: nowrap; }
+    .modal-item-price.gratis { color: var(--grey); font-weight: 400; }
+    .modal-item-price.pendiente { color: var(--brown); font-style: italic; }
+
+    .modal-total {
+      display: flex; justify-content: space-between;
+      align-items: baseline;
+      padding: 1rem 0;
+      font-size: 1.1rem; font-weight: 700;
+      border-bottom: 2px solid var(--cobalt);
+      margin-bottom: 1.5rem;
+    }
+    .modal-total-amount { color: var(--cobalt); }
+
+    .modal-compromiso {
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--brown); line-height: 1.65;
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .modal-acciones { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-enviar {
+      flex: 1; background: var(--cobalt); color: #fff;
+      border: none; cursor: pointer; font-family: inherit;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.9rem 1.5rem;
+      transition: background 0.15s;
+    }
+    .btn-enviar:hover { background: var(--cobalt-dark); }
+
+    .btn-volver {
+      background: none; color: var(--grey);
+      border: 1.5px solid var(--border); cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.9rem 1.2rem;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-volver:hover { border-color: var(--black); color: var(--black); }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      padding: 3vh 5%; font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem;
+      background: var(--cobalt-dark);
+      border-top: 2px solid var(--gold);
+      margin-bottom: 60px;
+    }
+
+    /* ─── GRIDS DE 4 COLUMNAS FIJAS ─────────────── */
+    #vive-madrid .grid,
+    #actividades-ufm .grid { grid-template-columns: repeat(4, 1fr); }
+
+    /* ─── BLOQUE 1: img|texto · img|texto ───────── */
+    #vive-ufm .grid { grid-template-columns: repeat(4, 1fr); }
+    #vive-ufm .card { grid-column: span 2; flex-direction: row; min-height: 240px; }
+    #vive-ufm .card-img { width: 50%; flex-shrink: 0; aspect-ratio: unset; align-self: stretch; border-right: 1px solid var(--border); }
+    #vive-ufm .card-body { padding: 3vh 2.5vw; justify-content: flex-start; gap: 0.45rem; }
+
+    /* ─── EXPLORA MADRID ────────────────────────── */
+    .explora-links {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-weight: 400;
+      color: var(--brown);
+      line-height: 1.7;
+      text-align: left;
+      margin: 0;
+    }
+    .explora-links a {
+      font-weight: 400;
+      color: var(--cobalt);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .explora-links a:hover { border-color: var(--cobalt); }
+    .explora-links strong {
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 700px) {
+      .portada { height: 80vh; }
+      #vive-ufm .grid { grid-template-columns: 1fr; }
+      #vive-ufm .card { grid-column: span 1; flex-direction: column; min-height: auto; }
+      #vive-ufm .card-img { width: 100%; aspect-ratio: 16/9; align-self: auto; border-right: none; }
+      .separador { flex-direction: column; gap: 1rem; }
+      .grid { grid-template-columns: 1fr; }
+      #vive-madrid .grid,
+      #actividades-ufm .grid { grid-template-columns: repeat(2, 1fr); }
+      .tl-row { flex-direction: row; }
+      .tl-fecha { width: 110px; flex-shrink: 0; }
+      footer { flex-direction: column; }
+      .topbar-brand { display: none; }
+      .modal { padding: 2rem 1.5rem; }
+      .cart-info { gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BARRA FIJA -->
+<nav class="topbar">
+  <span class="topbar-brand">UFM Madrid · Verano 2026</span>
+</nav>
+
+<!-- PORTADA -->
+<div class="portada">
+  <img src="img/campus_azulejo.png" alt="Campus UFM Madrid">
+  <div class="portada-overlay"></div>
+  <div class="portada-texto">
+    <p class="eyebrow">UFM Madrid · Verano 2026</p>
+    <h1>Bienvenidos<br>a Madrid.</h1>
+  </div>
+</div>
+
+<!-- SEPARADOR -->
+<div class="separador" id="separador-agenda">
+  <h2>Fuera del aula.</h2>
+  <p>Selecciona las actividades a las que quieras inscribirte <strong>(el cuadrito blanco)</strong>. Cuando hayas terminado, verás tu selección en el <strong>botón de abajo a la derecha</strong> — púlsalo para confirmar. Si alguna actividad tiene coste, se cargará directamente en tu <strong>cuenta de MiU</strong> cuando se alcance el número de inscritos.</p>
+</div>
+
+<div class="nav-agenda">
+  <a href="#vive-ufm">Vive UFM Madrid</a>
+  <a href="#vive-madrid">Hay vida más allá del campus</a>
+  <a href="#actividades-ufm">Ecosistema empresarial</a>
+  <a href="#conferencias">Conferencias</a>
+  <a href="#explora-madrid">Explora Madrid</a>
+</div>
+
+<!-- BLOQUE 1: VIVE UFM MADRID -->
+<div class="seccion alt" id="vive-ufm">
+  <p class="seccion-label">En UFM Madrid</p>
+  <h2 class="seccion-titulo">Vive UFM Madrid.</h2>
+  <div class="grid">
+
+    <div class="card" data-value="¡Hola, Madrid! + tapas" data-price="0" data-label="¡Hola, Madrid! + tapas">
+      <div class="card-img"><img src="img/IMG_1080.jpg" alt="¡Hola, Madrid! + tapas"></div>
+      <div class="card-body">
+        <span class="card-precio gratis">Sin costo</span>
+        <span class="card-fecha">X 3 junio · 1:30 pm</span>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">¡Hola, Madrid! + tapas</h3></div>
+        <p class="card-desc">Conoce a tus compañeros, profesores y equipo de UFM Madrid, disfrutando de sangría, tapas y música.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Fiesta de despedida con paella" data-price="0" data-label="Fiesta de despedida con paella">
+      <div class="card-img"><img src="img/021db0ad-8b70-42c4-8eef-351bf1912808_source-aspect-ratio_default_0.jpg" alt="Paella de despedida"></div>
+      <div class="card-body">
+        <span class="card-precio gratis">Sin costo</span>
+        <span class="card-fecha">J 25 junio · 7:00 pm</span>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Siempre recordarás esta paella</h3></div>
+        <p class="card-desc">Paella, sangría y todo lo que tenéis que contar. El mejor final para un mes en Madrid.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLOQUE 2: VIVE MADRID -->
+<div class="seccion" id="vive-madrid">
+  <p class="seccion-label">Te acompañamos</p>
+  <h2 class="seccion-titulo">Hay vida más allá del campus.</h2>
+  <div class="grid">
+
+    <div class="card" data-value="Museo del Prado" data-price="40" data-label="Museo del Prado">
+      <div class="card-img"><img src="img/39c9bdf2-6e38-4537-87b6-c0348528db4f_268.jpg" alt="Museo del Prado"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">V 12 junio · 10:00 am</span>
+          <span class="card-precio">40 €</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Museo del Prado</h3></div>
+        <p class="card-desc">La mayor colección del mundo de Velázquez, Goya, El Greco, Tiziano, Rubens y El Bosco bajo un mismo techo. La segunda pinacoteca más grande del mundo, y posiblemente la mejor. Incluye guía.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Paella Team Building" data-price="35" data-label="Paella Team Building">
+      <div class="card-img"><img src="img/20191213_151259-2-scaled.jpg" alt="Paella Team Building"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">J 18 junio · 8:00 pm</span>
+          <span class="card-precio">35 €</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Paella Team Building</h3></div>
+        <p class="card-desc">Equipos, ingredientes, fuego y una sola pregunta: ¿quién hace la mejor paella? Una dinámica de cocina donde el trabajo en equipo lo es todo. Y luego, a comérsela con sangría.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Toledo" data-price="50" data-label="Toledo">
+      <div class="card-img"><img src="img/conjunto2-transparente-utrilla-toledo.jpg" alt="Toledo"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">V 19 junio · 9:00 am</span>
+          <span class="card-precio">50 €</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Toledo: la capital medieval de las tres religiones</h3></div>
+        <p class="card-desc">Capital de España antes que Madrid y Patrimonio de la Humanidad. Catedral gótica, palacios, conventos, sinagogas y mezquitas a diez minutos andando. Incluye tren, guía y entradas.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="El Rastro" data-price="25" data-label="Rally en el Rastro">
+      <div class="card-img"><img src="img/el-rastro-clothing-stalls-1.jpeg" alt="Rally en el Rastro"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">D 28 junio · 9:00 am</span>
+          <span class="card-precio">25 €</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Rally en el Rastro</h3></div>
+        <p class="card-desc">Más de 500 años de oferta y demanda sin planificar, sin subvenciones y sin burocracia: quien tiene algo que vender encuentra a alguien que quiere comprarlo, y el precio lo fijan ellos dos. Esta vez, la visita tiene formato de reto.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLOQUE 3: ECOSISTEMA EMPRESARIAL -->
+<div class="seccion alt" id="actividades-ufm">
+  <p class="seccion-label">Te acompañamos</p>
+  <h2 class="seccion-titulo">Madrid, ecosistema empresarial.</h2>
+  <div class="grid">
+
+    <div class="card" data-value="South Summit" data-price="100" data-label="South Summit">
+      <div class="card-img"><img src="img/south-summit.jpeg.webp" alt="South Summit"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">V 5 junio · 10:00 am</span>
+          <span class="card-precio">100 €</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">South Summit</h3></div>
+        <p class="card-desc">El gran punto de encuentro donde startups, inversores, corporaciones y talento convierten ideas en negocio real. Más de 20.000 asistentes de 133 países, con 7.500 emprendedores y 2.100 inversores. Actividad obligatoria y gratuita para alumnos de Customer Experience.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Fábrica de Cervezas Mahou" data-price="25" data-label="Fábrica de Cervezas Mahou">
+      <div class="card-img"><img src="img/Visita-a-la-fabrica-de-Mahou-sala-de-barricas.jpg.webp" alt="Fábrica de Cervezas Mahou"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">X 10 junio · 3:30 pm</span>
+          <span class="card-precio">25 €</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Fábrica de Cervezas Mahou</h3></div>
+        <p class="card-desc">La mayor cervecera española: 700 millones de litros al año, presente en más de 70 países. San Miguel, la cerveza española más consumida del mundo. Te llevamos en autobús. Comprueba que no te coincide con tus clases.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Aula 42 — Telefónica" data-price="0" data-label="Aula 42 — Telefónica">
+      <div class="card-img"><img src="img/Studio-42.jpg" alt="Aula 42 — Telefónica"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">X 24 junio · 5:15 pm</span>
+          <span class="card-precio gratis">Sin costo</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Aula 42 — Telefónica</h3></div>
+        <p class="card-desc">El campus de programación más innovador y grande de Madrid. Aprende cómo se crea una IA en Distrito Telefónica. Comprueba que no te coincide con tus clases.</p>
+      </div>
+    </div>
+
+    <div class="card" data-value="Mercamadrid" data-price="15" data-label="Mercamadrid">
+      <div class="card-img"><img src="img/Mercado Central de Pescados mercamadrid (pasillo).jpg" alt="Mercamadrid"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-fecha">V 26 junio · 6:00 am</span>
+          <span class="card-precio">15 €</span>
+        </div>
+        <div class="card-title-row"><div class="card-check">✓</div><h3 class="card-titulo">Mercamadrid</h3></div>
+        <p class="card-desc">El mayor mercado de alimentación de Europa y el segundo mercado de pescado del mundo —solo por detrás de Tokio—, con más de 400 especies y 149.540 toneladas comercializadas en 2024. Te llevamos en autobús.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLOQUE 4: CONFERENCIAS -->
+<div class="seccion" id="conferencias">
+  <p class="seccion-label">En UFM Madrid</p>
+  <h2 class="seccion-titulo">Conferencias.</h2>
+  <p class="seccion-subtitulo">Convalidables como conferencia para alumnos de la FCE. Todos estáis invitados.</p>
+  <div class="timeline">
+
+    <div class="tl-row" data-value="Value Investing" data-price="0" data-label="Encuentro de Value Investing con Cobas, Azvalor y Horos">
+      <span class="tl-fecha">X 3 junio · 7:00 pm</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Encuentro de Value Investing con Cobas, Azvalor y Horos</h3></div><p>Los gestores de Cobas, Azvalor y Horos en un mismo escenario, presentados por los conductores de Tú dinero nunca duerme.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="XIX Congreso de Economía Austriaca" data-price="0" data-label="XIX Congreso de Economía Austriaca">
+      <span class="tl-fecha">M 9–J 11 junio · 4:00 pm</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>XIX Congreso de Economía Austriaca</h3></div><p>Debate abierto sobre las más recientes aportaciones en economía, política, sociología, filosofía y ética en la tradición de la Escuela Austriaca.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Tyranny Tracker" data-price="0" data-label="Javier El-Hage — Tyranny Tracker">
+      <span class="tl-fecha">M 9 junio · 7:15 pm</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Tyranny Tracker</h3></div><p>Javier El-Hage (Human Rights Foundation) — el índice que mide la tiranía en el mundo: 45 indicadores, todos los países, publicado en el Journal of Democracy.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Carlos Rodríguez Braun" data-price="0" data-label="Carlos Rodríguez Braun — Cómo hacer la economía apasionante">
+      <span class="tl-fecha">V 12 junio · 10:00 am</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Cómo hacer la economía apasionante</h3></div><p>Carlos Rodríguez Braun — el economista liberal que más oyen los no liberales (en la radio).</p></div>
+    </div>
+
+    <div class="tl-row" data-value="LiberAcción" data-price="0" data-label="LiberAcción">
+      <span class="tl-fecha">V 12 junio · 10:00 am</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>LiberAcción</h3></div><p>Feria del libro liberal: editoriales y autores presentando las últimas novedades del año.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Juan Ramón Rallo" data-price="0" data-label="Juan Ramón Rallo — Cómo difundir el liberalismo a un millón de personas">
+      <span class="tl-fecha">M 23 junio · 11:30 am</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Cómo difundir el liberalismo a un millón de personas</h3></div><p>Juan Ramón Rallo — el economista liberal más seguido de España en YouTube, con más de 900.000 suscriptores.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Gustavo Martínez" data-price="0" data-label="Gustavo Martínez — Cómo invertir para ser libre">
+      <span class="tl-fecha">X 24 junio · 10:00 am</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Cómo invertir para ser libre</h3></div><p>Gustavo Martínez — El profesor de UFM Madrid que predijo la escalada del oro y nadie le creía.</p></div>
+    </div>
+
+    <div class="tl-row" data-value="Deirdre McCloskey" data-price="0" data-label="Deirdre McCloskey — Conferencia">
+      <span class="tl-fecha">Por confirmar</span>
+      <div class="tl-content"><div class="tl-title-row"><div class="tl-check">✓</div><h3>Conferencia de Deirdre McCloskey</h3></div><p>Una de las intelectuales liberales más importantes del mundo. Autora de <em>The Bourgeois Era</em>, la trilogía que resuelve el gran enigma de Adam Smith.</p></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EXPLORA MADRID -->
+<div class="seccion alt" id="explora-madrid">
+  <p class="seccion-label">Por tu cuenta</p>
+  <h2 class="seccion-titulo">Explora Madrid.</h2>
+  <p class="seccion-desc">Cosas que ocurren en Madrid este verano y no son nuestras. Apúntatelas.</p>
+  <p class="explora-links"><a href="https://madrid.conelpapa.es/" target="_blank">Visita del Papa</a> · <a href="https://www.museodelprado.es/actualidad/actividad/el-prado-de-noche-2026/948271f2-336d-4a9c-b24a-55730c602644" target="_blank">El Prado de noche</a> · <a href="https://ferialibromadrid.com" target="_blank">Feria del Libro</a> · <a href="https://phe.es" target="_blank">PHotoEspaña</a> · <a href="https://kaloramamadrid.com" target="_blank">Conciertos en Kalorama</a> · <a href="https://nochesdelbotanico.com/entradas-artistas" target="_blank">Noches del Botánico</a> · <a href="https://www.clasicosenalcala.net/2025/home/" target="_blank">Festival Hispanoamericano del Siglo de Oro</a> · <a href="https://madridorgullo.com" target="_blank">Madrid Orgullo</a> · <strong>Conciertos de Bad Bunny, Rosalía, Linkin Park, BTS, Alejandro Sanz...</strong></p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Universidad Francisco Marroquín · Campus Madrid</span>
+  <span>Calle Arturo Soria 245, 28033 Madrid</span>
+</footer>
+
+<!-- BARRA CARRITO -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-info">
+    <span class="cart-count" id="cartCount">0 actividades</span>
+    <span class="cart-total" id="cartTotal">0 €</span>
+  </div>
+  <button class="cart-btn" onclick="abrirModal()">Revisar e inscribirse →</button>
+</div>
+
+<!-- MODAL CONFIRMACIÓN -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>Tu selección.</h2>
+    <div class="modal-lista" id="modalLista"></div>
+    <div class="modal-total">
+      <span>Total</span>
+      <span class="modal-total-amount" id="modalTotal">0 €</span>
+    </div>
+    <p class="modal-compromiso">
+      Autorizo cargar el importe en mi cuenta corriente de la Universidad, y me comprometo a acudir a las actividades seleccionadas.
+    </p>
+    <div class="modal-acciones">
+      <button class="btn-enviar" onclick="enviarSeleccion()">Acepto y envío →</button>
+      <button class="btn-volver" onclick="cerrarModal()">Volver</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSdMPBk9PglMUOcyvTPu8N4sFJMh_5JcR_9O2L4Ey-Wl4hTJkA/viewform?usp=pp_url';
+  const ENTRY    = 'entry.353066268';
+
+  function fmtPrecio(p) {
+    return (p % 1 === 0 ? p : p.toFixed(2).replace('.', ',')) + ' €';
+  }
+
+  const seleccionados = new Set();
+
+  document.querySelectorAll('.card[data-value], .tl-row[data-value]').forEach(el => {
+    el.addEventListener('click', () => {
+      const val = el.dataset.value;
+      if (seleccionados.has(val)) {
+        seleccionados.delete(val);
+        el.classList.remove('selected');
+      } else {
+        seleccionados.add(val);
+        el.classList.add('selected');
+      }
+      actualizarBarra();
+    });
+  });
+
+  function getSeleccionados() {
+    return [...document.querySelectorAll('.card[data-value].selected, .tl-row[data-value].selected')]
+      .map(el => ({ value: el.dataset.value, price: parseFloat(el.dataset.price), label: el.dataset.label }));
+  }
+
+  function actualizarBarra() {
+    const items    = getSeleccionados();
+    const n        = items.length;
+    const total    = items.reduce((s, i) => s + (i.price > 0 ? i.price : 0), 0);
+    const pendiente = items.some(i => i.price === -1);
+
+    const bar = document.getElementById('cartBar');
+    bar.classList.toggle('visible', n > 0);
+
+    document.getElementById('cartCount').textContent = n === 1 ? '1 actividad' : n + ' actividades';
+    document.getElementById('cartTotal').innerHTML =
+      fmtPrecio(total) + (pendiente ? '<span class="pendiente-note">+ precio pendiente</span>' : '');
+  }
+
+  function abrirModal() {
+    const items = getSeleccionados();
+    if (!items.length) return;
+
+    const total    = items.reduce((s, i) => s + (i.price > 0 ? i.price : 0), 0);
+    const pendiente = items.some(i => i.price === -1);
+
+    const lista = document.getElementById('modalLista');
+    lista.innerHTML = items.map(i => `
+      <div class="modal-item">
+        <span class="modal-item-name">${i.label}</span>
+        <span class="modal-item-price ${i.price === 0 ? 'gratis' : i.price === -1 ? 'pendiente' : ''}">
+          ${i.price > 0 ? fmtPrecio(i.price) : i.price === -1 ? 'Por confirmar' : 'Sin costo'}
+        </span>
+      </div>`).join('');
+
+    document.getElementById('modalTotal').innerHTML =
+      fmtPrecio(total) + (pendiente ? '<span class="pendiente-note" style="font-size:0.7rem;margin-left:0.4rem">+ precio pendiente</span>' : '');
+
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function cerrarModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+
+  function enviarSeleccion() {
+    const items = getSeleccionados();
+    let url = FORM_BASE;
+    items.forEach(i => { url += '&' + ENTRY + '=' + encodeURIComponent(i.value); });
+    window.open(url, '_blank');
+    cerrarModal();
+  }
+
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModal();
+  });
+</script>
+</body>
+</html>
